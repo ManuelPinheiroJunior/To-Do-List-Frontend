@@ -19,26 +19,16 @@ import { ApiConstants } from "../../api/ApiConstants";
 import { getLoginInfo } from "../../utils/LoginInfo";
 
 function* fetchTask(): Generator<any, void, any> {
-  console.log("🚀 API URL usada:", import.meta.env.VITE_API_BASE_URL);
-
   try {
     const data = getLoginInfo();
     const userId = data?.userId;
-
-    if (!userId) {
-      throw new Error("User ID not found");
-    }
-
-    const activeResponse = yield call(custom_axios.get, `/tasks/not-completed/${userId}`);
-    const completedResponse = yield call(custom_axios.get, `/tasks/completed/${userId}`);
-
+    const activeResponse = yield call(custom_axios.get, ApiConstants.TODO.FIND_NOT_COMPLETED(Number(userId)));
+    const completedResponse = yield call(custom_axios.get, ApiConstants.TODO.FIND_COMPLETED(Number(userId)));
     yield put(fetchTaskSuccess({ activeTasks: activeResponse.data, completedTasks: completedResponse.data }));
   } catch (error) {
-    console.error("Erro ao buscar tarefas:", error);
     yield put(fetchTaskFailure());
   }
 }
-
 
 function* addTask(action: ReturnType<typeof addTaskRequest>) {
   try {
