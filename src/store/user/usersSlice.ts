@@ -38,6 +38,7 @@ const usersSlice = createSlice({
     },
     deleteUserRequest: (state, action: PayloadAction<number>) => {
       state.loading = true;
+      action.payload;
     },
     deleteUserSuccess: (state, action: PayloadAction<number>) => {
       state.loading = false;
@@ -49,6 +50,7 @@ const usersSlice = createSlice({
     },
     editUserRequest: (state, action: PayloadAction<{ id: number; data: Partial<User> }>) => {
       state.loading = true;
+      action.payload;
     },
     editUserSuccess: (state, action: PayloadAction<User>) => {
       state.loading = false;

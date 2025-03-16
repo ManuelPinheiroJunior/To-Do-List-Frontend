@@ -15,6 +15,7 @@ const authSlice = createSlice({
     loginRequest: (state: AuthState, action: PayloadAction<{ email: string; password: string }>) => {
       state.loading = true;
       state.error = null;
+      action.payload;
     },
     loginSuccess: (state: AuthState, action: PayloadAction<{ token: string; userId: number }>) => {
       state.loading = false;
@@ -34,6 +35,7 @@ const authSlice = createSlice({
     signUpRequest: (state: AuthState, action: PayloadAction<{ firstName: string; lastName: string; dateOfBirth: string, email: string; password: string }>) => {
       state.loading = true;
       state.error = null;
+      action.payload;
     },
     signUpSuccess: (state: AuthState) => {
       state.loading = false;

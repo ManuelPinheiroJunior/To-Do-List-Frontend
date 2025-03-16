@@ -30,12 +30,15 @@ const taskSlice = createSlice({
     },
     addTaskRequest: (state: TaskState, action: PayloadAction<string>) => {
       state.loading = true;
+      action.payload;
     },
     MarkTaskCompleteRequest: (state: TaskState, action: PayloadAction<number>) => {
       state.loading = true;
+      action.payload;
     },
     editTaskRequest: (state: TaskState, action: PayloadAction<{ id: number; title: string }>) => {
       state.loading = true;
+      action.payload;
     },
     editTaskSuccess: (state: TaskState, action: PayloadAction<Task>) => {
       state.loading = false;
@@ -52,6 +55,7 @@ const taskSlice = createSlice({
     },
     deleteTaskRequest: (state: TaskState, action: PayloadAction<number>) => {
       state.loading = true;
+      action.payload;
     },
     deleteTaskSuccess: (state: TaskState) => {
       state.loading = false;
