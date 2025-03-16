@@ -24,6 +24,8 @@ const Login: React.FC = () => {
       loginRequest({ email: emailRef.current.value, password: passwordRef.current.value })
     );
   };
+  
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 
   return (
     <div style={{ minHeight: "100vh", background: "linear-gradient(135deg, #E3FDFD, #CBF1F5)", display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -34,7 +36,7 @@ const Login: React.FC = () => {
               <Card.Body>
                 <div className="text-center mb-4">
                   <img src={Logo} alt="Logo" style={{ height: "180px" }} />
-                  <h2 className="mt-2" style={{ color: "#0077B6" }}>To-Do List</h2>
+                  <h2 className="mt-2" style={{ color: "#0077B6" }}>{API_BASE_URL} To-Do List</h2>
                 </div>
 
                 {error && <Alert variant="danger">{error}</Alert>}
