@@ -1,4 +1,4 @@
 export * from "./authTypes";
-export * from "./tasksTypes";
-export * from "./usersTypes";
+export * from "./taskTypes";
+export * from "./userTypes";
 export * from "./apiResponseTypes";

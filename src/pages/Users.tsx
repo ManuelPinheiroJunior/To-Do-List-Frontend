@@ -19,12 +19,12 @@ const UsersPage = () => {
 
   const getAllUsers = async () => {
     const role = getLoginInfo()?.role;
-    if (role != null && role == "ADMIN") {
-      const response = await custom_axios.get(ApiConstants.USER.FIND_ALL, { headers: { Authorization: "Bearer " + localStorage.getItem("token") } });
-      setUsers(response.data);
-    } else {
-      toast.info("Forbidden Resource");
-    }
+    // if (role != null && role == "ADMIN") {
+    //   const response = await custom_axios.get(ApiConstants.USER.FIND_ALL, { headers: { Authorization: "Bearer " + localStorage.getItem("token") } });
+    //   setUsers(response.data);
+    // } else {
+    //   toast.info("Forbidden Resource");
+    // }
   };
 
   React.useEffect(() => {

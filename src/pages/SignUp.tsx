@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import Todo from "../assets/logo.png";
 import custom_axios from "../axios/AxiosSetup";

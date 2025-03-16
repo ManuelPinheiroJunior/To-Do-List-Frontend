@@ -1,4 +1,5 @@
 import jwt_decode from "jwt-decode";
+
 interface UserInfo {
   userId: number;
   firstName: string;
