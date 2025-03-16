@@ -1,12 +1,11 @@
 import axios from "axios";
 import { store } from "../store/store";
+import { URL_BASE } from "../utils/urls";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://to-do-list-back-end-one.vercel.app";
 
-console.log("🚀 API Base URL:", API_BASE_URL); 
 
 const custom_axios = axios.create({
-  baseURL: API_BASE_URL, 
+  baseURL: URL_BASE, 
   headers: {
     "Content-Type": "application/json",
   },
