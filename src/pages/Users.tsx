@@ -1,10 +1,10 @@
 import React from "react";
-import { ApiConstants } from "../api/ApiConstants";
-import custom_axios from "../axios/AxiosSetup";
+// import { ApiConstants } from "../api/ApiConstants";
+// import custom_axios from "../axios/AxiosSetup";
 import NavBar from "../components/NavBar";
 
 import { toast } from "react-toastify";
-import { getLoginInfo } from "../utils/LoginInfo";
+// import { getLoginInfo } from "../utils/LoginInfo";
 
 interface UserModel {
   firstName: string;
@@ -18,7 +18,7 @@ const UsersPage = () => {
   const [users, setUsers] = React.useState<UserModel[]>([]);
 
   const getAllUsers = async () => {
-    const role = getLoginInfo()?.role;
+    // const role = getLoginInfo()?.role;
     // if (role != null && role == "ADMIN") {
     //   const response = await custom_axios.get(ApiConstants.USER.FIND_ALL, { headers: { Authorization: "Bearer " + localStorage.getItem("token") } });
     //   setUsers(response.data);
@@ -68,8 +68,9 @@ const UsersPage = () => {
                             <button
                               hidden={user.role == "ADMIN" ? true : false}
                               onClick={async () => {
-                                const response = await custom_axios.delete(ApiConstants.USER.DELETE(user.id), { headers: { Authorization: "Bearer " + localStorage.getItem("token") } });
+                                // const response = await custom_axios.delete(ApiConstants.USER.DELETE(user.id), { headers: { Authorization: "Bearer " + localStorage.getItem("token") } });
                                 getAllUsers();
+                                setUsers(users.filter((u) => u.id != user.id));
                                 toast.success("User Deleted Sucessfully!!");
                               }}
                               className="bg-red-400 hover:bg-red-500 rounded-lg px-4 py-2 text-white shadow-sm text-xl "
