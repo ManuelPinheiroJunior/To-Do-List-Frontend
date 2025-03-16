@@ -1,4 +1,4 @@
-import { call, put, takeLatest } from "redux-saga/effects";
+import { call, delay, put, takeLatest } from "redux-saga/effects";
 import {
   fetchTaskRequest,
   fetchTaskSuccess,
@@ -20,6 +20,8 @@ import { getLoginInfo } from "../../utils/LoginInfo";
 
 function* fetchTask(): Generator<any, void, any> {
   try {
+
+    yield delay(500); 
     const data = getLoginInfo();
     const userId = data?.userId;
     const activeResponse = yield call(custom_axios.get, ApiConstants.TODO.FIND_NOT_COMPLETED(Number(userId)));
