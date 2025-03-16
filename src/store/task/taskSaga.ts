@@ -1,4 +1,4 @@
-import { call, delay, put, takeLatest } from "redux-saga/effects";
+import { call, put, takeLatest } from "redux-saga/effects";
 import {
   fetchTaskRequest,
   fetchTaskSuccess,
@@ -19,32 +19,14 @@ import { ApiConstants } from "../../api/ApiConstants";
 import { getLoginInfo } from "../../utils/LoginInfo";
 
 function* fetchTask(): Generator<any, void, any> {
+
   try {
-    yield delay(500); // Aguarda um pouco antes de pegar o token
-
-    let data = getLoginInfo();
-    let attempts = 0;
-
-    // Aguarda até 2 segundos para que o token seja carregado
-    while (!data && attempts < 4) {
-      yield delay(500);
-      data = getLoginInfo();
-      attempts++;
-    }
-
-    if (!data?.userId) {
-      throw new Error("User ID not found");
-    }
-
-    console.log("🚀 ~ User ID encontrado:", data.userId);
-
-    const userId = data.userId;
-    const activeResponse = yield call(custom_axios.get, ApiConstants.TODO.FIND_NOT_COMPLETED(Number(userId)));
-    const completedResponse = yield call(custom_axios.get, ApiConstants.TODO.FIND_COMPLETED(Number(userId)));
-
+    const data = getLoginInfo();
+    const userId = data?.userId;
+    const activeResponse = yield call(custom_axios.get, `${import.meta.env.import.meta.env.VITE_BASE_URL}/tasks/not-completed/${userId}`);
+    const completedResponse = yield call(custom_axios.get, `${import.meta.env.VITE_BASE_URL}/tasks/completed/${userId}`);
     yield put(fetchTaskSuccess({ activeTasks: activeResponse.data, completedTasks: completedResponse.data }));
   } catch (error) {
-    console.error("Erro ao buscar tarefas:", error);
     yield put(fetchTaskFailure());
   }
 }
