@@ -20,6 +20,8 @@ import { getLoginInfo } from "../../utils/LoginInfo";
 
 function* fetchTask(): Generator<any, void, any> {
 
+  console.log("🚀 API URL usada:", import.meta.env.VITE_API_BASE_URL);
+
   try {
     const data = getLoginInfo();
     const userId = data?.userId;
