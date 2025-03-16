@@ -1,93 +1,115 @@
-import React from "react";
-// import { ApiConstants } from "../api/ApiConstants";
-// import custom_axios from "../axios/AxiosSetup";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../store/store";
+import { Table, Container, Button, Alert, Card, Spinner, Row, Col, Form } from "react-bootstrap";
 import NavBar from "../components/NavBar";
+import { deleteUserRequest, editUserRequest, fetchUsersRequest } from "../store/user/usersSlice";
 
-import { toast } from "react-toastify";
-// import { getLoginInfo } from "../utils/LoginInfo";
+const UsersPage: React.FC = () => {
+  const dispatch = useDispatch();
+  const { users, loading, error } = useSelector((state: RootState) => state.user);
+  const [editUserId, setEditUserId] = useState<number | null>(null);
+  const [editData, setEditData] = useState<{ firstName: string; lastName: string; email: string }>({ firstName: "", lastName: "", email: "" });
 
-interface UserModel {
-  firstName: string;
-  lastName: string;
-  email: string;
-  id: number;
-  role: string;
-}
+  useEffect(() => {
+    dispatch(fetchUsersRequest());
+  }, [dispatch]);
 
-const UsersPage = () => {
-  const [users, setUsers] = React.useState<UserModel[]>([]);
-
-  const getAllUsers = async () => {
-    // const role = getLoginInfo()?.role;
-    // if (role != null && role == "ADMIN") {
-    //   const response = await custom_axios.get(ApiConstants.USER.FIND_ALL, { headers: { Authorization: "Bearer " + localStorage.getItem("token") } });
-    //   setUsers(response.data);
-    // } else {
-    //   toast.info("Forbidden Resource");
-    // }
+  const handleEditClick = (user: any) => {
+    setEditUserId(user.id);
+    setEditData({ firstName: user.firstName, lastName: user.lastName, email: user.email });
   };
 
-  React.useEffect(() => {
-    if (users.length == 0) getAllUsers();
-  }, []);
+  const handleSaveEdit = () => {
+    if (editUserId !== null) {
+      dispatch(editUserRequest({ id: editUserId, data: editData }));
+      setEditUserId(null);
+    }
+  };
+
   return (
-    <div>
-      <NavBar></NavBar>
-      <h1 className="text-2xl text-black text-center p-4">Users</h1>
-      {/* This is an example component */}
-      <div className="max-w-2xl mx-auto">
-        <div className="flex flex-col">
-          <div className="overflow-x-auto shadow-md sm:rounded-lg">
-            <div className="inline-block min-w-full align-middle">
-              <div className="overflow-hidden ">
-                <table className="min-w-full divide-y divide-gray-200 table-fixed dark:divide-gray-700">
-                  <thead className="bg-gray-100 dark:bg-gray-700">
-                    <tr>
-                      <th scope="col" className="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
-                        First Name
-                      </th>
-                      <th scope="col" className="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
-                        Last Name
-                      </th>
-                      <th scope="col" className="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
-                        Email
-                      </th>
-                      <th scope="col" className="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
-                        Active
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
-                    {users.map((user) => {
-                      return (
-                        <tr key={user.id} className="hover:bg-gray-100 dark:hover:bg-gray-700">
-                          <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">{user.firstName}</td>
-                          <td className="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap dark:text-white">{user.lastName}</td>
-                          <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">{user.email}</td>
-                          <td className="py-4 px-6 text-sm font-medium text-start whitespace-nowrap">
-                            <button
-                              hidden={user.role == "ADMIN" ? true : false}
-                              onClick={async () => {
-                                // const response = await custom_axios.delete(ApiConstants.USER.DELETE(user.id), { headers: { Authorization: "Bearer " + localStorage.getItem("token") } });
-                                getAllUsers();
-                                setUsers(users.filter((u) => u.id != user.id));
-                                toast.success("User Deleted Sucessfully!!");
-                              }}
-                              className="bg-red-400 hover:bg-red-500 rounded-lg px-4 py-2 text-white shadow-sm text-xl "
-                            >
-                              Delete
-                            </button>
-                          </td>
+    <div style={{ minHeight: "100vh", background: "linear-gradient(135deg, #E3FDFD, #CBF1F5)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <Container>
+        <NavBar />
+        <Row className="justify-content-center">
+          <Col md={10}>
+            <Card className="shadow-lg p-4 border-0" style={{ background: "#ffffff", borderRadius: "15px" }}>
+              <Card.Body>
+                <h1 className="text-center mt-2" style={{ color: "#0077B6" }}>Users</h1>
+                {error && <Alert variant="danger">{error}</Alert>}
+                {loading ? (
+                  <div className="text-center mt-4">
+                    <Spinner animation="border" variant="primary" />
+                  </div>
+                ) : (
+                  <Table striped bordered hover responsive className="mt-3 text-center">
+                    <thead className="table-dark">
+                      <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {users.map((user: any) => (
+                        <tr key={user.id}>
+                          {editUserId === user.id ? (
+                            <>
+                              <td>
+                                <Form.Control type="text" value={editData.firstName} onChange={(e) => setEditData({ ...editData, firstName: e.target.value })} />
+                              </td>
+                              <td>
+                                <Form.Control type="text" value={editData.lastName} onChange={(e) => setEditData({ ...editData, lastName: e.target.value })} />
+                              </td>
+                              <td>
+                                <Form.Control type="email" value={editData.email} onChange={(e) => setEditData({ ...editData, email: e.target.value })} />
+                              </td>
+                              <td>
+                                <Button variant="success" size="sm" onClick={handleSaveEdit}>
+                                  💾 Save
+                                </Button>
+                              </td>
+                            </>
+                          ) : (
+                            <>
+                              <td>{user.firstName}</td>
+                              <td>{user.lastName}</td>
+                              <td>{user.email}</td>
+                              <td>
+                                <div className="d-flex justify-content-center gap-2">
+                                  {user.role !== "ADMIN" && (
+                                    <Button
+                                      variant="warning"
+                                      size="sm"
+                                      onClick={() => handleEditClick(user)}
+                                    >
+                                      ✏ Edit
+                                    </Button>
+                                  )}
+                                  {user.role !== "ADMIN" && (
+                                    <Button
+                                      variant="danger"
+                                      size="sm"
+                                      onClick={() => dispatch(deleteUserRequest(user.id))}
+                                    >
+                                      ✖ Delete
+                                    </Button>
+                                  )}
+                                </div>
+                              </td>
+                            </>
+                          )}
                         </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+                      ))}
+                    </tbody>
+                  </Table>
+                )}
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
     </div>
   );
 };
