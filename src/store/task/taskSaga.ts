@@ -23,6 +23,7 @@ function* fetchTask(): Generator<any, void, any> {
     let data = getLoginInfo();
     let attempts = 0;
 
+   
     while ((!data || !data.userId) && attempts < 4) {
       yield new Promise((resolve) => setTimeout(resolve, 500));
       data = getLoginInfo();
@@ -33,9 +34,10 @@ function* fetchTask(): Generator<any, void, any> {
       throw new Error("User ID not found");
     }
 
-    console.log("🚀 FetchTask - User ID encontrado:", data.userId);
-
     const userId = data.userId;
+
+    console.log("🚀 FetchTask - User ID encontrado:", userId);
+    console.log("🚀 API Base URL usada:", import.meta.env.VITE_API_BASE_URL);
 
     const activeResponse = yield call(custom_axios.get, `/tasks/not-completed/${userId}`);
     const completedResponse = yield call(custom_axios.get, `/tasks/completed/${userId}`);
@@ -46,6 +48,7 @@ function* fetchTask(): Generator<any, void, any> {
     yield put(fetchTaskFailure());
   }
 }
+
 
 
 function* addTask(action: ReturnType<typeof addTaskRequest>) {
