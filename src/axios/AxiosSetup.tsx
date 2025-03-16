@@ -2,7 +2,7 @@ import axios from "axios";
 import { store } from "../store/store";
 
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://to-do-list-back-end-one.vercel.app/";
 
 const custom_axios = axios.create({
   baseURL: API_BASE_URL,
