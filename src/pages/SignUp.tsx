@@ -1,137 +1,117 @@
-import React from "react";
+import React, { useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import Todo from "../assets/logo.png";
-import custom_axios from "../axios/AxiosSetup";
-import { toast } from "react-toastify";
-import { ApiConstants } from "../api/ApiConstants";
+import { Form, Button, Container, Row, Col, Alert, Spinner, Card } from "react-bootstrap";
+import { RootState } from "../store/store";
 
-const SignUp = () => {
-  let navigate = useNavigate();
-  let firstName: any = React.useRef(null);
-  let lastName: any = React.useRef(null);
-  let password: any = React.useRef(null);
-  let confirmPassword: any = React.useRef(null);
-  let email: any = React.useRef(null);
+import Logo from "../assets/logo.png";
+import { signUpRequest } from "../store/auth/authSlice";
 
-  const register = async () => {
-    if (password.current.value != confirmPassword.current.value) {
-      toast.info("Password does not match!!!");
+const SignUp: React.FC = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const firstNameRef = useRef<HTMLInputElement>(null);
+  const lastNameRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const dateOfBirthRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
+  const confirmPasswordRef = useRef<HTMLInputElement>(null);
+
+  const { loading, error } = useSelector((state: RootState) => state.auth);
+
+  const handleSignUp = () => {
+    if (
+      !firstNameRef.current?.value ||
+      !lastNameRef.current?.value ||
+      !emailRef.current?.value ||
+      !dateOfBirthRef.current?.value ||
+      !passwordRef.current?.value ||
+      !confirmPasswordRef.current?.value
+    ) {
+      alert("Please fill in all fields");
       return;
     }
 
-    const response = await custom_axios.post(ApiConstants.USER.SIGN_UP, {
-      firstName: firstName.current.value,
-      lastName: lastName.current.value,
-      email: email.current.value,
-      password: password.current.value,
-    });
-    console.log(response.data);
-    toast.success("Account Created Sucessfully!!!");
-    navigate("/login");
+    if (passwordRef.current.value !== confirmPasswordRef.current.value) {
+      alert("Passwords do not match");
+      return;
+    }
+
+    dispatch(
+      signUpRequest({
+        firstName: firstNameRef.current.value,
+        lastName: lastNameRef.current.value,
+        email: emailRef.current.value,
+        dateOfBirth: dateOfBirthRef.current.value,
+        password: passwordRef.current.value,
+      })
+    );
   };
 
   return (
-    <div className="">
-      {/* Container */}
-      <div className="container mx-auto">
-        <div className="flex justify-center px-6 my-12">
-          {/* Row */}
-          <div className="w-full  border-black xl:w-3/4 lg:w-11/12 flex">
-            {/* Col */}
-            <div className="w-full   h-full bg-white hidden p-12  lg:block lg:w-5/12 bg-cover rounded-l-lg ">
-              <img src={Todo} className={"h-full  w-full "} />
-            </div>
-            {/* Col */}
-            <div className="w-full lg:w-7/12 bg-white p-5 rounded-lg lg:rounded-l-none">
-              <h3 className="pt-4 text-2xl text-center">Create an Account!</h3>
-              <form className="px-8 pt-6 pb-8 mb-4 bg-white rounded">
-                <div className="mb-4 md:flex md:justify-between">
-                  <div className="mb-4 md:mr-2 md:mb-0">
-                    <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="firstName">
-                      First Name
-                    </label>
-                    <input
-                      ref={firstName}
-                      className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                      id="firstName"
-                      type="text"
-                      placeholder="First Name"
-                    />
-                  </div>
-                  <div className="md:ml-2">
-                    <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="lastName">
-                      Last Name
-                    </label>
-                    <input
-                      ref={lastName}
-                      className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                      id="lastName"
-                      type="text"
-                      placeholder="Last Name"
-                    />
-                  </div>
+    <div style={{ minHeight: "100vh", background: "linear-gradient(135deg, #E3FDFD, #CBF1F5)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <Container>
+        <Row className="w-100 justify-content-center">
+          <Col md={5}>
+            <Card className="shadow-lg p-4 border-0" style={{ background: "#ffffff", borderRadius: "15px" }}>
+              <Card.Body>
+                <div className="text-center mb-4">
+                  <img src={Logo} alt="Logo" style={{ height: "50px" }} />
+                  <h2 className="mt-2" style={{ color: "#0077B6" }}>Create an Account</h2>
                 </div>
-                <div className="mb-4">
-                  <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="email">
-                    Email
-                  </label>
-                  <input
-                    ref={email}
-                    className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                    id="email"
-                    type="email"
-                    placeholder="Email"
-                  />
-                </div>
-                <div className="mb-4 md:flex md:justify-between">
-                  <div className="mb-4 md:mr-2 md:mb-0">
-                    <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="password">
-                      Password
-                    </label>
-                    <input
-                      ref={password}
-                      className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                      id="password"
-                      type="password"
-                      placeholder="******************"
-                    />
-                    {/* <p className="text-xs italic text-red-500">Please choose a password.</p> */}
-                  </div>
-                  <div className="md:ml-2">
-                    <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="c_password">
-                      Confirm Password
-                    </label>
-                    <input
-                      ref={confirmPassword}
-                      className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                      id="c_password"
-                      type="password"
-                      placeholder="******************"
-                    />
-                  </div>
-                </div>
-                <div className="mb-6 text-center">
-                  <button onClick={register} className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline" type="button">
-                    Register Account
-                  </button>
-                </div>
-                <hr className="mb-6 border-t" />
-                <div className="text-center"></div>
-                <div className="text-center">
+
+                {error && <Alert variant="danger">{error}</Alert>}
+
+                <Form>
+                  <Form.Group className="mb-3">
+                    <Form.Label style={{ color: "#0077B6" }}>First Name</Form.Label>
+                    <Form.Control type="text" ref={firstNameRef} placeholder="Enter your first name" style={{ background: "#f8f9fa", color: "#333", border: "1px solid #ced4da" }} />
+                  </Form.Group>
+
+                  <Form.Group className="mb-3">
+                    <Form.Label style={{ color: "#0077B6" }}>Last Name</Form.Label>
+                    <Form.Control type="text" ref={lastNameRef} placeholder="Enter your last name" style={{ background: "#f8f9fa", color: "#333", border: "1px solid #ced4da" }} />
+                  </Form.Group>
+
+                  <Form.Group className="mb-3">
+                    <Form.Label style={{ color: "#0077B6" }}>Email</Form.Label>
+                    <Form.Control type="email" ref={emailRef} placeholder="Enter your email" style={{ background: "#f8f9fa", color: "#333", border: "1px solid #ced4da" }} />
+                  </Form.Group>
+
+                  <Form.Group className="mb-3">
+                    <Form.Label style={{ color: "#0077B6" }}>Date of Birth</Form.Label>
+                    <Form.Control type="date" ref={dateOfBirthRef} style={{ background: "#f8f9fa", color: "#333", border: "1px solid #ced4da" }} />
+                  </Form.Group>
+
+                  <Form.Group className="mb-3">
+                    <Form.Label style={{ color: "#0077B6" }}>Password</Form.Label>
+                    <Form.Control type="password" ref={passwordRef} placeholder="Enter your password" style={{ background: "#f8f9fa", color: "#333", border: "1px solid #ced4da" }} />
+                  </Form.Group>
+
+                  <Form.Group className="mb-3">
+                    <Form.Label style={{ color: "#0077B6" }}>Confirm Password</Form.Label>
+                    <Form.Control type="password" ref={confirmPasswordRef} placeholder="Confirm your password" style={{ background: "#f8f9fa", color: "#333", border: "1px solid #ced4da" }} />
+                  </Form.Group>
+
+                  <Button variant="primary" className="w-100" onClick={handleSignUp} disabled={loading}>
+                    {loading ? <Spinner animation="border" size="sm" /> : "Sign Up"}
+                  </Button>
+                </Form>
+
+                <div className="text-center mt-3">
                   <a
-                    className=" cursor-pointer linline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
-                    onClick={() => {
-                      navigate("/login");
-                    }}
+                    onClick={() => navigate("/login")}
+                    className="cursor-pointer"
+                    style={{ color: "#0077B6", textDecoration: "none" }}
                   >
-                    Already have an account? Login!
+                    Already have an account? Login
                   </a>
                 </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
     </div>
   );
 };
