@@ -26,6 +26,9 @@ const Login: React.FC = () => {
   };
   
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
+  console.log("🚀 ~ API_BASE_URL:", API_BASE_URL)
+  console.log("🚀 ~ API_BASE_URL:", typeof(API_BASE_URL))
+  
 
   return (
     <div style={{ minHeight: "100vh", background: "linear-gradient(135deg, #E3FDFD, #CBF1F5)", display: "flex", alignItems: "center", justifyContent: "center" }}>
