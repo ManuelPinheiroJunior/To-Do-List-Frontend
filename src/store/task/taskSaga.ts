@@ -20,14 +20,31 @@ import { getLoginInfo } from "../../utils/LoginInfo";
 
 function* fetchTask(): Generator<any, void, any> {
   try {
+    yield delay(500); // Aguarda um pouco antes de pegar o token
 
-    yield delay(500); 
-    const data = getLoginInfo();
-    const userId = data?.userId;
+    let data = getLoginInfo();
+    let attempts = 0;
+
+    // Aguarda até 2 segundos para que o token seja carregado
+    while (!data && attempts < 4) {
+      yield delay(500);
+      data = getLoginInfo();
+      attempts++;
+    }
+
+    if (!data?.userId) {
+      throw new Error("User ID not found");
+    }
+
+    console.log("🚀 ~ User ID encontrado:", data.userId);
+
+    const userId = data.userId;
     const activeResponse = yield call(custom_axios.get, ApiConstants.TODO.FIND_NOT_COMPLETED(Number(userId)));
     const completedResponse = yield call(custom_axios.get, ApiConstants.TODO.FIND_COMPLETED(Number(userId)));
+
     yield put(fetchTaskSuccess({ activeTasks: activeResponse.data, completedTasks: completedResponse.data }));
   } catch (error) {
+    console.error("Erro ao buscar tarefas:", error);
     yield put(fetchTaskFailure());
   }
 }
