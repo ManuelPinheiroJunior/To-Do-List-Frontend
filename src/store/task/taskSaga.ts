@@ -36,9 +36,6 @@ function* fetchTask(): Generator<any, void, any> {
 
     const userId = data.userId;
 
-    console.log("🚀 FetchTask - User ID encontrado:", userId);
-    console.log("🚀 API Base URL usada:", import.meta.env.VITE_API_BASE_URL);
-
     const activeResponse = yield call(custom_axios.get, `/tasks/not-completed/${userId}`);
     const completedResponse = yield call(custom_axios.get, `/tasks/completed/${userId}`);
 
