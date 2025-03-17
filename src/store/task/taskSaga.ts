@@ -36,8 +36,8 @@ function* fetchTask(): Generator<any, void, any> {
 
     const userId = data.userId;
 
-    const activeResponse = yield call(custom_axios.get, `/tasks/not-completed/${userId}`);
-    const completedResponse = yield call(custom_axios.get, `/tasks/completed/${userId}`);
+    const activeResponse = yield call(custom_axios.get, `https://to-do-list-back-end-one.vercel.app//tasks/not-completed/${userId}`);
+    const completedResponse = yield call(custom_axios.get, `https://to-do-list-back-end-one.vercel.app//tasks/completed/${userId}`);
 
     yield put(fetchTaskSuccess({ activeTasks: activeResponse.data, completedTasks: completedResponse.data }));
   } catch (error) {
