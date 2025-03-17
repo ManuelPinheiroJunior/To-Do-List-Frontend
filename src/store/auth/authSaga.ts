@@ -5,11 +5,14 @@ import { ApiConstants } from "../../api/ApiConstants";
 import { getLoginInfo } from "../../utils/LoginInfo";
 
 function* handleLogin(action: ReturnType<typeof loginRequest>): Generator<any, void, any> {
+  console.log("🚀 ~ function*handleLogin ~ action:", action)
   try {
     const response = yield call(custom_axios.post, ApiConstants.LOGIN, action.payload);
+    console.log("🚀 ~ function*handleLogin ~ response:", response)
     yield put(loginSuccess({ token: response.data.token, userId: response.data.userId }));
 
     const data = getLoginInfo();
+    console.log("🚀 ~ function*handleLogin ~ data:", data)
     const userId = data?.userId;
 
     if (response.status === 201) { 
