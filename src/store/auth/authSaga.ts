@@ -16,9 +16,7 @@ function* handleLogin(action: ReturnType<typeof loginRequest>): Generator<any, v
     if (response.status === 201) { 
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("userId", response.data.userId || userId);
-      console.log("🚀 ~ function*handleLogin ~ userId:", userId)
       redirectTo("/tasks");
-      console.log("🚀 ~ function*handleLogin ~ responseX:", response)
     }
     console.log(response);
   } catch (error: any) {
@@ -31,7 +29,7 @@ function* handleSignUp(action: ReturnType<typeof signUpRequest>): Generator<any,
     const response = yield call(custom_axios.post, ApiConstants.USER.SIGN_UP, action.payload);
     if (response.status === 201) {
       yield put(signUpSuccess());
-      window.location.href = "/login"; 
+       redirectTo("/login");
     }
   } catch (error: any) {
     yield put(signUpFailure("Error creating account. Please try again."));

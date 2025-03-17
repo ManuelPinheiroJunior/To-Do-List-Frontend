@@ -21,7 +21,7 @@ import { getLoginInfo } from "../../utils/LoginInfo";
 function* fetchTask(): Generator<any, void, any> {
   try {
     let data = getLoginInfo();
-    console.log("🚀 ~ function*fetchTask ~ data:", data)
+
     let attempts = 0;
 
     while ((!data || !data.userId) && attempts < 6) {
@@ -35,25 +35,24 @@ function* fetchTask(): Generator<any, void, any> {
     }
 
     const token = localStorage.getItem("token");
-    console.log("🚀 ~ function*fetchTask ~ token:", token)
+
 
     if (!token) {
       throw new Error("Token não encontrado!");
     }
 
     const userId = data.userId;
-    console.log("🚀 ~ function*fetchTask ~ userId:", userId)
 
 
     const activeResponse = yield call(custom_axios.get, `/tasks/not-completed/${userId}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    console.log("🚀 ~ function*fetchTask ~ activeResponse:", activeResponse)
+
 
     const completedResponse = yield call(custom_axios.get, `/tasks/completed/${userId}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    console.log("🚀 ~ function*fetchTask ~ completedResponse:", completedResponse)
+
 
     yield put(fetchTaskSuccess({ activeTasks: activeResponse.data, completedTasks: completedResponse.data }));
   } catch (error) {
