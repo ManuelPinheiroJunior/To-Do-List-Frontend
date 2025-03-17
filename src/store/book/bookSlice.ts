@@ -26,6 +26,7 @@ const bookSlice = createSlice({
     fetchBooksRequest: (state, action: PayloadAction<string>) => {
       state.loading = true;
       state.error = null;
+      action.payload;
     },
     fetchBooksSuccess: (state, action: PayloadAction<Book[]>) => {
       state.books = action.payload;

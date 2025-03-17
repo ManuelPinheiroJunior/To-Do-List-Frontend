@@ -2,6 +2,7 @@
 import { Card, Row, Col, Button } from "react-bootstrap";
 import { CompleteTaskProps } from "../types";
 
+
 const CompleteTaskList = (props: CompleteTaskProps) => {
   return (
     <Card className="shadow-lg border-0 rounded-3 p-4 mb-3">
