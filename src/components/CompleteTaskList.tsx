@@ -1,6 +1,6 @@
 
 import { Card, Row, Col, Button } from "react-bootstrap";
-import { CompleteTaskProps } from "../types/completeTaskTypes";
+import { CompleteTaskProps } from "../types/CompleteTaskTypes";
 
 
 const CompleteTaskList = (props: CompleteTaskProps) => {
