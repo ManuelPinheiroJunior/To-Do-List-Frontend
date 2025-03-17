@@ -14,7 +14,7 @@ const Tasks = () => {
 
   useEffect(() => {
     dispatch(fetchTaskRequest());
-  }, [dispatch]);
+  }, []);
 
   const saveTask = () => {
     if (titleRef.current?.value) {
