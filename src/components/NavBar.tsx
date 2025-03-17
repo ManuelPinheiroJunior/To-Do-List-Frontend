@@ -31,6 +31,12 @@ const CustomNavbar: React.FC = () => {
             >
               Task Complete
             </Nav.Link>
+             <Nav.Link onClick={() => navigate("/books")} style={{ color: "#0077B6", transition: "transform 0.2s ease-in-out" }}
+              onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.1)")}
+              onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
+            >
+              Books
+            </Nav.Link>
             {role === "ADMIN" && (
               <Nav.Link onClick={() => navigate("/users")} style={{ color: "#0077B6", transition: "transform 0.2s ease-in-out" }}
                 onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.1)")}

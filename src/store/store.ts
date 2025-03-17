@@ -4,6 +4,7 @@ import createSagaMiddleware from "redux-saga";
 import taskReducer from "./task/taskSlice";
 import authReducer from "./auth/authSlice";
 import userReducer from "./user/usersSlice";
+import bookReducer from "./book/bookSlice";
 import rootSaga from "./rootSaga";
 
 const sagaMiddleware = createSagaMiddleware();
@@ -13,6 +14,7 @@ export const store = configureStore({
     tasks: taskReducer,
     auth: authReducer,
     user: userReducer,
+    books: bookReducer,
   },
   middleware: (getDefaultMiddleware : any) => getDefaultMiddleware().concat(sagaMiddleware),
 });

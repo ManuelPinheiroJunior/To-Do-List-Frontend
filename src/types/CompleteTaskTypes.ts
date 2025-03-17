@@ -1,5 +1,5 @@
 
-export interface CompeleteTaskProps {
+export interface CompleteTaskProps {
   id: number;
   task: string;
   dateTime: string;

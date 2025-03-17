@@ -5,6 +5,7 @@ import SignUp from "../pages/SignUp";
 import UsersPage from "../pages/Users";
 import Tasks from "../pages/Tasks";
 import CompletedTasks from "../pages/CompletedTasks";
+import Books from "../pages/Books";
 
 const Routing = () => {
   return (
@@ -12,6 +13,7 @@ const Routing = () => {
       <Route path="/" element={<Navigate to="/login" />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signUp" element={<SignUp />} />
+      <Route path="/books" element={<Books />} />
 
       <Route
         path="/users"

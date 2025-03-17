@@ -3,6 +3,7 @@ import { watchTaskSaga } from "./task/taskSaga";
 
 import { watchUsersSaga } from "./user/userSaga";
 import { watchAuthSaga } from "./auth/authSaga";
+import { watchBookSaga } from "./book/bookSaga";
 
 
 export default function* rootSaga() {
@@ -10,5 +11,6 @@ export default function* rootSaga() {
     watchTaskSaga(),
     watchAuthSaga(),
     watchUsersSaga(),
+     watchBookSaga(),
   ]);
 }

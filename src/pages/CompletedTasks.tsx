@@ -23,7 +23,7 @@ const CompletedTasks = () => {
           <Col md={8}>
             <Card className="shadow-lg p-4 border-0" style={{ background: "#ffffff", borderRadius: "15px" }}>
               <Card.Body>
-                <h2 className="text-center mb-4" style={{ color: "#0077B6" }}>Task Completed</h2>
+                <h2 className="text-center mb-4" style={{ color: "#0077B6" }}>Task Complete</h2>
                 {loading ? (
                   <div className="text-center mt-4">
                     <Spinner animation="border" variant="primary" />
