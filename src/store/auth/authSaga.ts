@@ -15,7 +15,9 @@ function* handleLogin(action: ReturnType<typeof loginRequest>): Generator<any, v
     if (response.status === 201) { 
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("userId", response.data.userId || userId);
+      console.log("🚀 ~ function*handleLogin ~ userId:", userId)
       window.location.href = "/tasks"; 
+      console.log("🚀 ~ function*handleLogin ~ responseX:", response)
     }
     console.log(response);
   } catch (error: any) {
