@@ -2,11 +2,14 @@
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
-import Routing from "./routes/Routing";
 import "bootstrap/dist/css/bootstrap.min.css";
+import App from "./App";
+import { BrowserRouter } from "react-router-dom";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <Provider store={store}>
-    <Routing />
+    <BrowserRouter>
+    <App />
+    </BrowserRouter>
   </Provider>
 );

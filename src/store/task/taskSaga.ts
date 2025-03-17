@@ -19,18 +19,40 @@ import { ApiConstants } from "../../api/ApiConstants";
 import { getLoginInfo } from "../../utils/LoginInfo";
 
 function* fetchTask(): Generator<any, void, any> {
-  console.log("🚀 API URL usada:", import.meta.env.VITE_API_BASE_URL);
-
   try {
-    const data = getLoginInfo();
-    const userId = data?.userId;
+    let data = getLoginInfo();
 
-    if (!userId) {
+    let attempts = 0;
+
+    while ((!data || !data.userId) && attempts < 6) {
+      yield new Promise((resolve) => setTimeout(resolve, 500));
+      data = getLoginInfo();
+      attempts++;
+    }
+
+    if (!data?.userId) {
       throw new Error("User ID not found");
     }
 
-    const activeResponse = yield call(custom_axios.get, `/tasks/not-completed/${userId}`);
-    const completedResponse = yield call(custom_axios.get, `/tasks/completed/${userId}`);
+    const token = localStorage.getItem("token");
+
+
+    if (!token) {
+      throw new Error("Token não encontrado!");
+    }
+
+    const userId = data.userId;
+
+
+    const activeResponse = yield call(custom_axios.get, `/tasks/not-completed/${userId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+
+    const completedResponse = yield call(custom_axios.get, `/tasks/completed/${userId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
 
     yield put(fetchTaskSuccess({ activeTasks: activeResponse.data, completedTasks: completedResponse.data }));
   } catch (error) {

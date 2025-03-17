@@ -3,6 +3,7 @@ import { loginRequest, loginSuccess, loginFailure, signUpRequest, signUpFailure,
 import custom_axios from "../../axios/AxiosSetup";
 import { ApiConstants } from "../../api/ApiConstants";
 import { getLoginInfo } from "../../utils/LoginInfo";
+import { redirectTo } from "../../utils/navigateHelper";
 
 function* handleLogin(action: ReturnType<typeof loginRequest>): Generator<any, void, any> {
   try {
@@ -15,7 +16,7 @@ function* handleLogin(action: ReturnType<typeof loginRequest>): Generator<any, v
     if (response.status === 201) { 
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("userId", response.data.userId || userId);
-      window.location.href = "/tasks"; 
+      redirectTo("/tasks");
     }
     console.log(response);
   } catch (error: any) {
@@ -28,7 +29,7 @@ function* handleSignUp(action: ReturnType<typeof signUpRequest>): Generator<any,
     const response = yield call(custom_axios.post, ApiConstants.USER.SIGN_UP, action.payload);
     if (response.status === 201) {
       yield put(signUpSuccess());
-      window.location.href = "/login"; 
+       redirectTo("/login");
     }
   } catch (error: any) {
     yield put(signUpFailure("Error creating account. Please try again."));
