@@ -23,7 +23,7 @@ const Books = () => {
     <div style={{ minHeight: "100vh", background: "linear-gradient(135deg, #E3FDFD, #CBF1F5)", display: "flex", flexDirection: "column" }}>
       <NavBar />
       <Container className="d-flex flex-column align-items-center justify-content-center flex-grow-1 mt-4">
-        <h2 className="text-center mb-4" style={{ color: "#0077B6" }}>📚 Lista de Livros</h2>
+        <h2 className="text-center mb-4" style={{ color: "#0077B6" }}>📚 Books List</h2>
 
         <Form onSubmit={handleSearch} className="d-flex justify-content-center mb-4">
           <Form.Control
@@ -52,7 +52,7 @@ const Books = () => {
                   <Card.Body>
                     <Card.Title className="fw-bold" style={{ fontSize: "1rem" }}>{book.title}</Card.Title>
                     <Card.Text style={{ fontSize: "0.9rem", color: "#555" }}>
-                      <strong>Autor(es):</strong> {book.authors.join(", ")}
+                      <strong>author(es):</strong> {book.authors.join(", ")}
                     </Card.Text>
                   </Card.Body>
                 </Card>

@@ -12,7 +12,7 @@ function* fetchBooksSaga(action: ReturnType<typeof fetchBooksRequest>): Generato
     const formattedBooks = response.data.items.map((item: any) => ({
       id: item.id,
       title: item.volumeInfo.title,
-      authors: item.volumeInfo.authors || ["Autor Desconhecido"],
+      authors: item.volumeInfo.authors || ["author unknown"],
       thumbnail: item.volumeInfo.imageLinks?.thumbnail || "https://via.placeholder.com/128x180",
     }));
 
