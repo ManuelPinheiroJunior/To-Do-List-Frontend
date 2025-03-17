@@ -1,41 +1,38 @@
 # 📝 To-Do List Frontend
 
-## 🌎 Demonstração Online
-🚀 O projeto está **hospedado na Vercel** e pode ser acessado pelo link abaixo:  
-🔗 **[To-Do List Frontend - Vercel](https://to-do-list-frontend-lac.vercel.app/)**  
+## 🌎 Online Demo
+🚀 The project is **hosted on Vercel** and can be accessed through the link below:
+🔗 **[To-Do List Frontend - Vercel](https://to-do-list-frontend-ashen.vercel.app/)**
 
 ---
 
-## 📌 Visão Geral
-Este é o frontend de um aplicativo de **lista de tarefas (To-Do List)** desenvolvido com **React, Redux-Toolkit e Redux-Saga**, estilizado com **React Bootstrap** e integrado com **autenticação JWT**.
+## 📌 Overview
+This is the frontend of a **To-Do List** application built with **React, Redux-Toolkit and Redux-Saga**, styled with **React Bootstrap** and integrated with **JWT authentication**.
 
-O objetivo do projeto é fornecer uma **experiência fluida e intuitiva** para que os usuários possam **gerenciar suas tarefas de forma eficiente**, garantindo **persistência de dados, segurança e design responsivo**.
-
----
-
-## ⚡ Tecnologias Utilizadas
-| Tecnologia            | Função                                                   |
-|-----------------------|----------------------------------------------------------|
-| **React**            | Biblioteca principal para construção da UI               |
-| **Redux Toolkit**    | Gerenciamento de estado centralizado                     |
-| **Redux-Saga**       | Middleware para controle de efeitos colaterais assíncronos |
-| **React-Router-DOM** | Navegação entre páginas no frontend                      |
-| **Axios**           | Cliente HTTP para comunicação com a API                   |
-| **React Bootstrap**  | Estilização moderna e responsiva                         |
-| **JWT-Decode**       | Decodificação do token JWT para controle de sessão       |
-| **React Toastify**   | Exibição de notificações amigáveis                       |
-| **Vite**            | Build e ambiente de desenvolvimento rápido                |
-| **ESLint**          | Ferramenta de linting para manter código limpo e padronizado |
+The goal of the project is to provide a **fluid and intuitive experience** so that users can **manage their tasks efficiently**, ensuring **data persistence, security and responsive design**.
 
 ---
 
-## 📌 Funcionalidades
-✅ **Autenticação JWT** (Login e Registro)  
-✅ **Gerenciamento de Tarefas** (Criar, Editar, Concluir, Excluir)  
-✅ **Filtragem de Tarefas** (Pendentes e Concluídas)  
-✅ **Edição Inline das Tarefas** (Alteração dinâmica dentro da UI)  
-✅ **Notificações Amigáveis** (Toastify)  
-✅ **Interface Responsiva** (React Bootstrap)  
-✅ **Persistência de Sessão** (Token JWT no LocalStorage)  
+## ⚡ Technologies Used
+| Technology | Function | |----------------------------------|----------------------------------------------------------|
+| **React** | Core library for UI building |
+| **Redux toolkit** | Centralized state management |
+| **Redux Saga** | Middleware for handling asynchronous side effects |
+| **React-Router-DOM** | Frontend page navigation |
+| **Axios** | HTTP client for API communication |
+| **React Bootstrap** | Modern and responsive styling |
+| **JWT decoding** | Decoding JWT token for session control |
+| **React Toastify** | Displaying user-friendly notifications |
+| **Visit** | Build and rapid development environment |
+| **ESLint** | Linting tool for keeping code clean and standardized |
 
+---
 
+## 📌 Features
+✅ **JWT Authentication** (Login and Registration)
+✅ **Task Management** (Create, Edit, Complete, Delete)
+✅ **Task Filtering** (Pending and Completed)
+✅ **Inline Task Editing** (Dynamic change within the UI)
+✅ **Friendly Notifications** (Toastify)
+✅ **Responsive UI** (React Bootstrap)
+✅ **Session Persistence** (JWT Token in LocalStorage)
