@@ -1,8 +1,11 @@
 import axios from "axios";
 import { store } from "../store/store";
+import { URL_BASE } from "../utils/urls";
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || URL_BASE;
 
 const custom_axios = axios.create({
-  baseURL: import.meta.env.VITE_BASE_URL,
+  baseURL: API_BASE_URL,
   headers: {
     "Content-Type": "application/json",
   },
