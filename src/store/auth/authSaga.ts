@@ -6,7 +6,16 @@ import { getLoginInfo } from "../../utils/LoginInfo";
 
 function* handleLogin(action: ReturnType<typeof loginRequest>): Generator<any, void, any> {
   try {
-    const response = yield call(custom_axios.post, ApiConstants.LOGIN, action.payload);
+
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      throw new Error("Token não encontrado!");
+    }
+
+    const response = yield call(custom_axios.post, ApiConstants.LOGIN, action.payload, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
     yield put(loginSuccess({ token: response.data.token, userId: response.data.userId }));
 
     const data = getLoginInfo();
