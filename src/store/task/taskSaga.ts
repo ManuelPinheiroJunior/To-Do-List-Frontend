@@ -20,15 +20,43 @@ import { getLoginInfo } from "../../utils/LoginInfo";
 
 function* fetchTask(): Generator<any, void, any> {
   try {
-    const data = getLoginInfo();
-    const userId = data?.userId;
-    const activeResponse = yield call(custom_axios.get, ApiConstants.TODO.FIND_NOT_COMPLETED(Number(userId)));
-    const completedResponse = yield call(custom_axios.get, ApiConstants.TODO.FIND_COMPLETED(Number(userId)));
+    let data = getLoginInfo();
+    let attempts = 0;
+
+    while ((!data || !data.userId) && attempts < 6) {
+      yield new Promise((resolve) => setTimeout(resolve, 500));
+      data = getLoginInfo();
+      attempts++;
+    }
+
+    if (!data?.userId) {
+      throw new Error("User ID not found");
+    }
+
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      throw new Error("Token não encontrado!");
+    }
+
+    const userId = data.userId;
+
+
+    const activeResponse = yield call(custom_axios.get, `/tasks/not-completed/${userId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    const completedResponse = yield call(custom_axios.get, `/tasks/completed/${userId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
     yield put(fetchTaskSuccess({ activeTasks: activeResponse.data, completedTasks: completedResponse.data }));
   } catch (error) {
+    console.error("Erro ao buscar tarefas:", error);
     yield put(fetchTaskFailure());
   }
 }
+
 
 function* addTask(action: ReturnType<typeof addTaskRequest>) {
   try {
