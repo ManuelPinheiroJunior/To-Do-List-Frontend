@@ -3,6 +3,7 @@ import { loginRequest, loginSuccess, loginFailure, signUpRequest, signUpFailure,
 import custom_axios from "../../axios/AxiosSetup";
 import { ApiConstants } from "../../api/ApiConstants";
 import { getLoginInfo } from "../../utils/LoginInfo";
+import { redirectTo } from "../../utils/navigateHelper";
 
 function* handleLogin(action: ReturnType<typeof loginRequest>): Generator<any, void, any> {
   try {
@@ -16,7 +17,7 @@ function* handleLogin(action: ReturnType<typeof loginRequest>): Generator<any, v
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("userId", response.data.userId || userId);
       console.log("🚀 ~ function*handleLogin ~ userId:", userId)
-      window.location.href = "/tasks"; 
+      redirectTo("/tasks");
       console.log("🚀 ~ function*handleLogin ~ responseX:", response)
     }
     console.log(response);
