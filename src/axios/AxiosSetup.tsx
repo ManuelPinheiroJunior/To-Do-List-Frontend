@@ -1,4 +1,5 @@
 import axios from "axios";
+import { store } from "../store/store";
 
 const custom_axios = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
@@ -7,5 +8,29 @@ const custom_axios = axios.create({
   },
 });
 
+custom_axios.interceptors.request.use(
+  async (config) => {
+    let state = store.getState();
+    let token = state.auth.token || localStorage.getItem("token");
+
+
+    let attempts = 0;
+    while (!token && attempts < 6) {
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      state = store.getState();
+      token = state.auth.token || localStorage.getItem("token");
+      attempts++;
+    }
+
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    } else {
+      console.warn("🚨 Nenhum token encontrado após aguardar!");
+    }
+    
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
 
 export default custom_axios;
