@@ -23,8 +23,8 @@ function* fetchTask(): Generator<any, void, any> {
     let data = getLoginInfo();
     let attempts = 0;
 
-   
-    while ((!data || !data.userId) && attempts < 4) {
+    // Aguarda o token ser carregado até 3 segundos (6 tentativas x 500ms)
+    while ((!data || !data.userId) && attempts < 6) {
       yield new Promise((resolve) => setTimeout(resolve, 500));
       data = getLoginInfo();
       attempts++;
@@ -35,10 +35,10 @@ function* fetchTask(): Generator<any, void, any> {
     }
 
     const userId = data.userId;
+    console.log("🚀 FetchTask - User ID encontrado:", userId);
 
-   const activeResponse = yield call(custom_axios.get, `https://to-do-list-back-end-one.vercel.app/tasks/not-completed/${userId}`);
-    const completedResponse = yield call(custom_axios.get, `https://to-do-list-back-end-one.vercel.app/tasks/completed/${userId}`);
-
+    const activeResponse = yield call(custom_axios.get, `/tasks/not-completed/${userId}`);
+    const completedResponse = yield call(custom_axios.get, `/tasks/completed/${userId}`);
 
     yield put(fetchTaskSuccess({ activeTasks: activeResponse.data, completedTasks: completedResponse.data }));
   } catch (error) {
