@@ -1,11 +1,19 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { AuthState } from "../../types";
+
+interface AuthState {
+  token: string | null;
+  userId: number | null;
+  loading: boolean;
+  error: string | null;
+  validationErrors: Record<string, string>;
+}
 
 const initialState: AuthState = {
   token: localStorage.getItem("token") || null,
   userId: null,
   loading: false,
   error: null,
+  validationErrors: {},
 };
 
 const authSlice = createSlice({
@@ -32,7 +40,11 @@ const authSlice = createSlice({
       state.userId = null;
       localStorage.removeItem("token");
     },
-    signUpRequest: (state: AuthState, action: PayloadAction<{ firstName: string; lastName: string; dateOfBirth: string, email: string; password: string }>) => {
+      signUpValidationFailure: (state, action: PayloadAction<Record<string, string>>) => {
+      state.loading = false;
+      state.validationErrors = action.payload;
+    },
+    signUpRequest: (state: AuthState, action: PayloadAction<{ firstName: string; lastName: string; dateOfBirth: string, email: string; password: string, confirmPassword: string }>) => {
       state.loading = true;
       state.error = null;
       action.payload;
@@ -47,5 +59,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { loginRequest, loginSuccess, loginFailure, logout, signUpRequest, signUpSuccess, signUpFailure } = authSlice.actions;
+export const { loginRequest, loginSuccess, loginFailure, logout, signUpValidationFailure, signUpRequest, signUpSuccess, signUpFailure } = authSlice.actions;
 export default authSlice.reducer;

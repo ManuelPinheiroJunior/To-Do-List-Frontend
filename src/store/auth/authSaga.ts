@@ -1,9 +1,10 @@
 import { call, put, takeLatest } from "redux-saga/effects";
-import { loginRequest, loginSuccess, loginFailure, signUpRequest, signUpFailure, signUpSuccess } from "./authSlice";
+import { loginRequest, loginSuccess, loginFailure, signUpValidationFailure,  signUpRequest, signUpFailure, signUpSuccess } from "./authSlice";
 import custom_axios from "../../axios/AxiosSetup";
 import { ApiConstants } from "../../api/ApiConstants";
 import { getLoginInfo } from "../../utils/LoginInfo";
 import { redirectTo } from "../../utils/navigateHelper";
+import { validateSignUp } from "../../utils/validation";
 
 function* handleLogin(action: ReturnType<typeof loginRequest>): Generator<any, void, any> {
   try {
@@ -25,13 +26,24 @@ function* handleLogin(action: ReturnType<typeof loginRequest>): Generator<any, v
 }
 
 function* handleSignUp(action: ReturnType<typeof signUpRequest>): Generator<any, void, any> {
+
+  const validationErrors = validateSignUp(action.payload);
+
+  if (validationErrors) {
+    yield put(signUpValidationFailure(validationErrors));
+    return;
+  }
+
   try {
     const response = yield call(custom_axios.post, ApiConstants.USER.SIGN_UP, action.payload);
+
+
     if (response.status === 201) {
       yield put(signUpSuccess());
-       redirectTo("/login");
+      redirectTo("/login");
     }
   } catch (error: any) {
+    console.error("❌ Erro SingUp:", error);
     yield put(signUpFailure("Error creating account. Please try again."));
   }
 }
