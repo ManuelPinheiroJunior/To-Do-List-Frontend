@@ -22,7 +22,7 @@ function* handleLogin(action: ReturnType<typeof loginRequest>): Generator<any, v
     console.log(response);
   } catch (error: any) {
     yield put(loginFailure("Invalid login credentials"));
-  }
+  } 
 }
 
 function* handleSignUp(action: ReturnType<typeof signUpRequest>): Generator<any, void, any> {

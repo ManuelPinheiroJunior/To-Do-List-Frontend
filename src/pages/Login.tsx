@@ -13,7 +13,7 @@ const Login: React.FC = () => {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
-  const { loading, error } = useSelector((state: RootState) => state.auth);
+  const { loading, loginError  } = useSelector((state: RootState) => state.auth);
 
   const handleLogin = () => {
     if (!emailRef.current?.value || !passwordRef.current?.value) {
@@ -38,7 +38,7 @@ const Login: React.FC = () => {
                   <h2 className="mt-2" style={{ color: "#0077B6" }}>To-Do List</h2>
                 </div>
 
-                {error && <Alert variant="danger">{error}</Alert>}
+                {loginError && <Alert variant="danger">{loginError}</Alert>}
 
                 <Form>
                   <Form.Group className="mb-3">
