@@ -1,51 +1,28 @@
-import React, { useRef } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Form, Button, Container, Row, Col, Alert, Spinner, Card } from "react-bootstrap";
 import { RootState } from "../store/store";
-
 import Logo from "../assets/logo.png";
 import { signUpRequest } from "../store/auth/authSlice";
 
 const SignUp: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const firstNameRef = useRef<HTMLInputElement>(null);
-  const lastNameRef = useRef<HTMLInputElement>(null);
-  const emailRef = useRef<HTMLInputElement>(null);
-  const dateOfBirthRef = useRef<HTMLInputElement>(null);
-  const passwordRef = useRef<HTMLInputElement>(null);
-  const confirmPasswordRef = useRef<HTMLInputElement>(null);
+  
+  const [form, setForm] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    dateOfBirth: "",
+    password: "",
+    confirmPassword: "",
+  });
 
-  const { loading, error } = useSelector((state: RootState) => state.auth);
+  const { loading, error, validationErrors } = useSelector((state: RootState) => state.auth);
 
   const handleSignUp = () => {
-    if (
-      !firstNameRef.current?.value ||
-      !lastNameRef.current?.value ||
-      !emailRef.current?.value ||
-      !dateOfBirthRef.current?.value ||
-      !passwordRef.current?.value ||
-      !confirmPasswordRef.current?.value
-    ) {
-      alert("Please fill in all fields");
-      return;
-    }
-
-    if (passwordRef.current.value !== confirmPasswordRef.current.value) {
-      alert("Passwords do not match");
-      return;
-    }
-
-    dispatch(
-      signUpRequest({
-        firstName: firstNameRef.current.value,
-        lastName: lastNameRef.current.value,
-        email: emailRef.current.value,
-        dateOfBirth: dateOfBirthRef.current.value,
-        password: passwordRef.current.value,
-      })
-    );
+    dispatch(signUpRequest(form));
   };
 
   return (
@@ -63,35 +40,19 @@ const SignUp: React.FC = () => {
                 {error && <Alert variant="danger">{error}</Alert>}
 
                 <Form>
-                  <Form.Group className="mb-3">
-                    <Form.Label style={{ color: "#0077B6" }}>First Name</Form.Label>
-                    <Form.Control type="text" ref={firstNameRef} placeholder="Enter your first name" style={{ background: "#f8f9fa", color: "#333", border: "1px solid #ced4da" }} />
-                  </Form.Group>
-
-                  <Form.Group className="mb-3">
-                    <Form.Label style={{ color: "#0077B6" }}>Last Name</Form.Label>
-                    <Form.Control type="text" ref={lastNameRef} placeholder="Enter your last name" style={{ background: "#f8f9fa", color: "#333", border: "1px solid #ced4da" }} />
-                  </Form.Group>
-
-                  <Form.Group className="mb-3">
-                    <Form.Label style={{ color: "#0077B6" }}>Email</Form.Label>
-                    <Form.Control type="email" ref={emailRef} placeholder="Enter your email" style={{ background: "#f8f9fa", color: "#333", border: "1px solid #ced4da" }} />
-                  </Form.Group>
-
-                  <Form.Group className="mb-3">
-                    <Form.Label style={{ color: "#0077B6" }}>Date of Birth</Form.Label>
-                    <Form.Control type="date" ref={dateOfBirthRef} style={{ background: "#f8f9fa", color: "#333", border: "1px solid #ced4da" }} />
-                  </Form.Group>
-
-                  <Form.Group className="mb-3">
-                    <Form.Label style={{ color: "#0077B6" }}>Password</Form.Label>
-                    <Form.Control type="password" ref={passwordRef} placeholder="Enter your password" style={{ background: "#f8f9fa", color: "#333", border: "1px solid #ced4da" }} />
-                  </Form.Group>
-
-                  <Form.Group className="mb-3">
-                    <Form.Label style={{ color: "#0077B6" }}>Confirm Password</Form.Label>
-                    <Form.Control type="password" ref={confirmPasswordRef} placeholder="Confirm your password" style={{ background: "#f8f9fa", color: "#333", border: "1px solid #ced4da" }} />
-                  </Form.Group>
+                  {["firstName", "lastName", "email", "dateOfBirth", "password", "confirmPassword"].map((field) => (
+                    <Form.Group className="mb-3" key={field}>
+                      <Form.Label style={{ color: "#0077B6" }}>{field.replace(/([A-Z])/g, " $1")}</Form.Label>
+                      <Form.Control
+                        type={field.includes("password") ? "password" : field === "dateOfBirth" ? "date" : "text"}
+                        placeholder={`Enter your ${field}`}
+                        value={form[field as keyof typeof form]}
+                        onChange={(e) => setForm({ ...form, [field]: e.target.value })}
+                        isInvalid={!!validationErrors[field]}
+                      />
+                      <Form.Control.Feedback type="invalid">{validationErrors[field]}</Form.Control.Feedback>
+                    </Form.Group>
+                  ))}
 
                   <Button variant="primary" className="w-100" onClick={handleSignUp} disabled={loading}>
                     {loading ? <Spinner animation="border" size="sm" /> : "Sign Up"}
@@ -99,11 +60,7 @@ const SignUp: React.FC = () => {
                 </Form>
 
                 <div className="text-center mt-3">
-                  <a
-                    onClick={() => navigate("/login")}
-                    className="cursor-pointer"
-                    style={{ color: "#0077B6", textDecoration: "none" }}
-                  >
+                  <a onClick={() => navigate("/login")} className="cursor-pointer" style={{ color: "#0077B6", textDecoration: "none" }}>
                     Already have an account? Login
                   </a>
                 </div>
