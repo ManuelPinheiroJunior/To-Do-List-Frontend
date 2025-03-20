@@ -19,7 +19,7 @@ const SignUp: React.FC = () => {
     confirmPassword: "",
   });
 
-  const { loading, error, validationErrors } = useSelector((state: RootState) => state.auth);
+  const { loading, signUpError, validationErrors } = useSelector((state: RootState) => state.auth);
 
   const handleSignUp = () => {
     dispatch(signUpRequest(form));
@@ -37,7 +37,7 @@ const SignUp: React.FC = () => {
                   <h2 className="mt-2" style={{ color: "#0077B6" }}>Create an Account</h2>
                 </div>
 
-                {error && <Alert variant="danger">{error}</Alert>}
+                {signUpError && <Alert variant="danger">{signUpError}</Alert>}
 
                 <Form>
                   {["firstName", "lastName", "email", "dateOfBirth", "password", "confirmPassword"].map((field) => (
