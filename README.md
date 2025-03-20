@@ -1,14 +1,8 @@
 # 📝 To-Do List Frontend
 
-<<<<<<< HEAD
-## 🌎 Demonstração Online
-🚀 O projeto está **hospedado na Vercel** e pode ser acessado pelo link abaixo:  
-🔗 **[To-Do List Frontend - Vercel](https://to-do-list-frontend-ashen.vercel.app/)**  
-=======
 ## 🌎 Online Demo
 🚀 The project is **hosted on Vercel** and can be accessed through the link below:
 🔗 **[To-Do List Frontend - Vercel](https://to-do-list-frontend-ashen.vercel.app/)**
->>>>>>> dcd62b71996f468af1aca5476155af25f0b26e70
 
 ---
 
