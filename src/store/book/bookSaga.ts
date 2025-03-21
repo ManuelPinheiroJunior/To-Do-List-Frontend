@@ -1,8 +1,21 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 import axios from "axios";
 import { fetchBooksRequest, fetchBooksSuccess, fetchBooksFailure } from "./bookSlice";
+import translations from "../../translations/translations.json";
+
+
+
+type Translations = {
+  [key: string]: {
+    [key: string]: string;
+  };
+};
+
+const typedTranslations: Translations = translations;
 
 function* fetchBooksSaga(action: ReturnType<typeof fetchBooksRequest>): Generator<any, void, any> {
+   const language = localStorage.getItem("language") || "en";
+   const t = typedTranslations[language];
   try {
     const response = yield call(
       axios.get,
@@ -18,7 +31,7 @@ function* fetchBooksSaga(action: ReturnType<typeof fetchBooksRequest>): Generato
 
     yield put(fetchBooksSuccess(formattedBooks));
   } catch (error) {
-    yield put(fetchBooksFailure("Erro ao buscar livros"));
+    yield put(fetchBooksFailure(t.errorFetchingBooks));
   }
 }
 

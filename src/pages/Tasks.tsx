@@ -7,7 +7,6 @@ import ActiveTaskList from "../components/TaskList";
 import { RootState } from "../store/store";
 
 const Tasks = () => {
-  console.log("Tasks");
   const dispatch = useDispatch();
   const tasks = useSelector((state: RootState) => state.tasks.activeTasks);
   const loading = useSelector((state: RootState) => state.tasks.loading);

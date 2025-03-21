@@ -3,28 +3,30 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Form, Button, Container, Row, Col, Alert, Spinner, Card } from "react-bootstrap";
 import { RootState } from "../store/store";
-
 import Logo from "../assets/logo.png";
 import { loginRequest } from "../store/auth/authSlice";
+import { useLanguage } from "../hooks/useLanguage";
+import { useTranslation } from "../hooks/usetTranslation";
+
 
 const Login: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
-
-  const { loading, loginError  } = useSelector((state: RootState) => state.auth);
+  const { loading, loginError } = useSelector((state: RootState) => state.auth);
+  const { switchLanguage } = useLanguage();
+  const t = useTranslation();
 
   const handleLogin = () => {
     if (!emailRef.current?.value || !passwordRef.current?.value) {
-      alert("Please fill in all fields");
+      alert(t.fillAllFields);
       return;
     }
     dispatch(
       loginRequest({ email: emailRef.current.value, password: passwordRef.current.value })
     );
   };
-  
 
   return (
     <div style={{ minHeight: "100vh", background: "linear-gradient(135deg, #E3FDFD, #CBF1F5)", display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -35,24 +37,24 @@ const Login: React.FC = () => {
               <Card.Body>
                 <div className="text-center mb-4">
                   <img src={Logo} alt="Logo" style={{ height: "180px" }} />
-                  <h2 className="mt-2" style={{ color: "#0077B6" }}>To-Do List</h2>
+                  <h2 className="mt-2" style={{ color: "#0077B6" }}>{t.title}</h2>
                 </div>
 
                 {loginError && <Alert variant="danger">{loginError}</Alert>}
 
                 <Form>
                   <Form.Group className="mb-3">
-                    <Form.Label style={{ color: "#0077B6" }}>Email</Form.Label>
-                    <Form.Control type="email" ref={emailRef} placeholder="Enter your email" style={{ background: "#f8f9fa", color: "#333", border: "1px solid #ced4da" }} />
+                    <Form.Label style={{ color: "#0077B6" }}>{t.email}</Form.Label>
+                    <Form.Control type="email" ref={emailRef} placeholder={t.enterEmail} style={{ background: "#f8f9fa", color: "#333", border: "1px solid #ced4da" }} />
                   </Form.Group>
 
                   <Form.Group className="mb-3">
-                    <Form.Label style={{ color: "#0077B6" }}>Password</Form.Label>
-                    <Form.Control type="password" ref={passwordRef} placeholder="Enter your password" style={{ background: "#f8f9fa", color: "#333", border: "1px solid #ced4da" }} />
+                    <Form.Label style={{ color: "#0077B6" }}>{t.password}</Form.Label>
+                    <Form.Control type="password" ref={passwordRef} placeholder={t.enterPassword} style={{ background: "#f8f9fa", color: "#333", border: "1px solid #ced4da" }} />
                   </Form.Group>
 
                   <Button variant="primary" className="w-100" onClick={handleLogin} disabled={loading}>
-                    {loading ? <Spinner animation="border" size="sm" /> : "Login"}
+                    {loading ? <Spinner animation="border" size="sm" /> : t.login}
                   </Button>
                 </Form>
 
@@ -62,8 +64,14 @@ const Login: React.FC = () => {
                     className="cursor-pointer"
                     style={{ color: "#0077B6", textDecoration: "none" }}
                   >
-                    Don't have an account? Sign Up
+                    {t.dontHaveAccount}
                   </a>
+                </div>
+
+                <div className="text-center mt-3">
+                  <Button variant="link" onClick={switchLanguage}>
+                    {t.switchToPortuguese}
+                  </Button>
                 </div>
               </Card.Body>
             </Card>

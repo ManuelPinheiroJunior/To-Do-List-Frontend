@@ -1,15 +1,17 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Container, Row, Col, Card, Spinner } from "react-bootstrap";
+import { Container, Row, Col, Card, Spinner, Button } from "react-bootstrap";
 import NavBar from "../components/NavBar";
 import { deleteTaskRequest, fetchTaskRequest } from "../store/task/taskSlice";
 import CompleteTaskList from "../components/CompleteTaskList";
 import { RootState } from "../store/store";
+import { useLanguage } from "../hooks/useLanguage";
 
 const CompletedTasks = () => {
   const dispatch = useDispatch();
   const tasks = useSelector((state: RootState) => state.tasks.completedTasks);
   const loading = useSelector((state: RootState) => state.tasks.loading);
+  const { language, switchLanguage } = useLanguage();
 
   useEffect(() => {
     dispatch(fetchTaskRequest());
@@ -23,7 +25,7 @@ const CompletedTasks = () => {
           <Col md={8}>
             <Card className="shadow-lg p-4 border-0" style={{ background: "#ffffff", borderRadius: "15px" }}>
               <Card.Body>
-                <h2 className="text-center mb-4" style={{ color: "#0077B6" }}>Task Complete</h2>
+                <h2 className="text-center mb-4" style={{ color: "#0077B6" }}>{language === "en" ? "Completed Tasks" : "Tarefas Completas"}</h2>
                 {loading ? (
                   <div className="text-center mt-4">
                     <Spinner animation="border" variant="primary" />

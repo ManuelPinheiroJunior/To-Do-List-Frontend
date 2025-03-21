@@ -4,10 +4,15 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
 import { getLoginInfo } from "../utils/LoginInfo";
 import Logo from "../assets/logo.png";
+import { useLanguage } from "../hooks/useLanguage";
+import { useTranslation } from "../hooks/usetTranslation";
+
 
 const CustomNavbar: React.FC = () => {
   const navigate = useNavigate();
   const role = getLoginInfo()?.role || "";
+  const switchLanguage = useLanguage();
+  const t = useTranslation();
 
   return (
     <Navbar expand="lg" style={{ background: "linear-gradient(135deg, #E0F7FA, #B2EBF2)", position: "fixed", top: 0, left: 0, width: "100%", zIndex: 1000 }}>
@@ -46,6 +51,9 @@ const CustomNavbar: React.FC = () => {
               </Nav.Link>
             )}
           </Nav>
+          <Button variant="link" onClick={() => switchLanguage.switchLanguage()}>
+            {t.switchToPortuguese}
+          </Button>
           <Button
             variant="outline-primary"
             style={{ borderColor: "#0077B6" }}
@@ -63,3 +71,4 @@ const CustomNavbar: React.FC = () => {
 };
 
 export default CustomNavbar;
+
