@@ -5,13 +5,14 @@ import NavBar from "../components/NavBar";
 import { addTaskRequest, deleteTaskRequest, fetchTaskRequest, MarkTaskCompleteRequest } from "../store/task/taskSlice";
 import ActiveTaskList from "../components/TaskList";
 import { RootState } from "../store/store";
+import { useTranslation } from "../hooks/usetTranslation";
 
 const Tasks = () => {
-  console.log("Tasks");
   const dispatch = useDispatch();
   const tasks = useSelector((state: RootState) => state.tasks.activeTasks);
   const loading = useSelector((state: RootState) => state.tasks.loading);
   const titleRef = useRef<HTMLInputElement>(null);
+  const t = useTranslation();
 
   useEffect(() => {
     dispatch(fetchTaskRequest());
@@ -32,15 +33,15 @@ const Tasks = () => {
           <Col md={8}>
             <Card className="shadow-lg p-4 border-0" style={{ background: "#ffffff", borderRadius: "15px" }}>
               <Card.Body>
-                <h2 className="text-center mb-4" style={{ color: "#0077B6" }}>Task List</h2>
+                <h2 className="text-center mb-4" style={{ color: "#0077B6" }}>{t.tasks}</h2>
 
                 <Form>
                   <Form.Group className="mb-3">
-                    <Form.Label style={{ color: "#0077B6" }}>Enter Task:</Form.Label>
-                    <Form.Control type="text" ref={titleRef} placeholder="Enter new task" style={{ background: "#f8f9fa", color: "#333", border: "1px solid #ced4da" }} />
+                    <Form.Label style={{ color: "#0077B6" }}>{t.newTask}:</Form.Label>
+                    <Form.Control type="text" ref={titleRef} placeholder={t.enterNewTask} style={{ background: "#f8f9fa", color: "#333", border: "1px solid #ced4da" }} />
                   </Form.Group>
                   <Button variant="success" className="w-100" onClick={saveTask} disabled={loading}>
-                    {loading ? <Spinner animation="border" size="sm" /> : "Save Task"}
+                    {loading ? <Spinner animation="border" size="sm" /> : t.saveTask}
                   </Button>
                 </Form>
 

@@ -5,11 +5,13 @@ import NavBar from "../components/NavBar";
 import { deleteTaskRequest, fetchTaskRequest } from "../store/task/taskSlice";
 import CompleteTaskList from "../components/CompleteTaskList";
 import { RootState } from "../store/store";
+import { useTranslation } from "../hooks/usetTranslation";
 
 const CompletedTasks = () => {
   const dispatch = useDispatch();
   const tasks = useSelector((state: RootState) => state.tasks.completedTasks);
   const loading = useSelector((state: RootState) => state.tasks.loading);
+  const t = useTranslation();
 
   useEffect(() => {
     dispatch(fetchTaskRequest());
@@ -23,7 +25,7 @@ const CompletedTasks = () => {
           <Col md={8}>
             <Card className="shadow-lg p-4 border-0" style={{ background: "#ffffff", borderRadius: "15px" }}>
               <Card.Body>
-                <h2 className="text-center mb-4" style={{ color: "#0077B6" }}>Task Complete</h2>
+                <h2 className="text-center mb-4" style={{ color: "#0077B6" }}>{t.taskCompleted}</h2>
                 {loading ? (
                   <div className="text-center mt-4">
                     <Spinner animation="border" variant="primary" />
