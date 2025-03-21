@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Tooltip, OverlayTrigger } from "react-bootstrap";
 import usFlag from "../assets/usFlag.png";
 import brFlag from "../assets/brFlag.png";

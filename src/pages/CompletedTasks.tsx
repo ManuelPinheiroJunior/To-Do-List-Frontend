@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Container, Row, Col, Card, Spinner, Button } from "react-bootstrap";
+import { Container, Row, Col, Card, Spinner } from "react-bootstrap";
 import NavBar from "../components/NavBar";
 import { deleteTaskRequest, fetchTaskRequest } from "../store/task/taskSlice";
 import CompleteTaskList from "../components/CompleteTaskList";
