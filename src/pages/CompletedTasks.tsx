@@ -11,7 +11,7 @@ const CompletedTasks = () => {
   const dispatch = useDispatch();
   const tasks = useSelector((state: RootState) => state.tasks.completedTasks);
   const loading = useSelector((state: RootState) => state.tasks.loading);
-  const { language, switchLanguage } = useLanguage();
+  const { language } = useLanguage();
 
   useEffect(() => {
     dispatch(fetchTaskRequest());

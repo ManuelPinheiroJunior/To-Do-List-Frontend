@@ -5,8 +5,10 @@ import { Form, Button, Container, Row, Col, Alert, Spinner, Card } from "react-b
 import { RootState } from "../store/store";
 import Logo from "../assets/logo.png";
 import { loginRequest } from "../store/auth/authSlice";
-import { useLanguage } from "../hooks/useLanguage";
 import { useTranslation } from "../hooks/usetTranslation";
+import LanguageSelector from "../components/LanguageSelector";
+
+
 
 
 const Login: React.FC = () => {
@@ -15,7 +17,6 @@ const Login: React.FC = () => {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const { loading, loginError } = useSelector((state: RootState) => state.auth);
-  const { switchLanguage } = useLanguage();
   const t = useTranslation();
 
   const handleLogin = () => {
@@ -68,11 +69,12 @@ const Login: React.FC = () => {
                   </a>
                 </div>
 
-                <div className="text-center mt-3">
-                  <Button variant="link" onClick={switchLanguage}>
-                    {t.switchToPortuguese}
-                  </Button>
+               <div className="text-center mt-3">
+                <div className="d-inline-block ml-6"> 
+                  <LanguageSelector />
                 </div>
+              </div>
+
               </Card.Body>
             </Card>
           </Col>

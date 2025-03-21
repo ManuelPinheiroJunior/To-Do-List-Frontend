@@ -11,7 +11,7 @@ import { useTranslation } from "../hooks/usetTranslation";
 const CustomNavbar: React.FC = () => {
   const navigate = useNavigate();
   const role = getLoginInfo()?.role || "";
-  const switchLanguage = useLanguage();
+  const { changeLanguage } = useLanguage();
   const t = useTranslation();
 
   return (
@@ -51,7 +51,7 @@ const CustomNavbar: React.FC = () => {
               </Nav.Link>
             )}
           </Nav>
-          <Button variant="link" onClick={() => switchLanguage.switchLanguage()}>
+          <Button variant="link" onClick={() => changeLanguage("pt")} style={{ color: "#0077B6" }}>
             {t.switchToPortuguese}
           </Button>
           <Button
