@@ -6,7 +6,7 @@ import { RootState } from "../store/store";
 import Logo from "../assets/logo.png";
 import { loginRequest } from "../store/auth/authSlice";
 import { useTranslation } from "../hooks/usetTranslation";
-import LanguageSelector from "../components/LanguageSelector";
+import LanguageToggle from "../components/LanguageToggle";
 
 
 
@@ -32,10 +32,14 @@ const Login: React.FC = () => {
   return (
     <div style={{ minHeight: "100vh", background: "linear-gradient(135deg, #E3FDFD, #CBF1F5)", display: "flex", alignItems: "center", justifyContent: "center" }}>
       <Container>
+        
         <Row className="w-100 justify-content-center">
           <Col md={5}>
             <Card className="shadow-lg p-4 border-0" style={{ background: "#ffffff", borderRadius: "15px" }}>
               <Card.Body>
+                  <div className="d-flex justify-content-end mb-3">
+                  <LanguageToggle />
+                </div>
                 <div className="text-center mb-4">
                   <img src={Logo} alt="Logo" style={{ height: "180px" }} />
                   <h2 className="mt-2" style={{ color: "#0077B6" }}>{t.title}</h2>
@@ -69,11 +73,7 @@ const Login: React.FC = () => {
                   </a>
                 </div>
 
-               <div className="text-center mt-3">
-                <div className="d-inline-block ml-6"> 
-                  <LanguageSelector />
-                </div>
-              </div>
+        
 
               </Card.Body>
             </Card>

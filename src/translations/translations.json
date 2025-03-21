@@ -23,11 +23,22 @@
     "searchPlaceholder": "Enter a book topic...",
     "search": "Search",
     "loading": "Loading...",
+    "enterNewTask": "Enter a new task",
+    "newTask": "New Task",
     "invalidLoginCredentials": "Invalid login credentials",
     "errorCreatingAccount": "Error creating account",
     "errorFetchingBooks": "Error fetching books",
     "fillAllFields": "Please fill all fields",
-    "alreadyHaveAccount": "Already have an account? Login"
+    "alreadyHaveAccount": "Already have an account? Login",
+    "tasks": "Tasks",
+    "saveTask": "Save Task",
+    "taskCompleted": "Task Completed",
+    "books": "Books",
+    "users": "Users",
+    "Edit": "Edit",
+    "Delete": "Delete",
+    "Actions": "Actions",
+    "logout": "Logout"
   },
   "pt": {
     "title": "Lista de Tarefas",
@@ -50,6 +61,8 @@
     "dontHaveAccount": "Não tem uma conta? Cadastre-se",
     "switchToPortuguese": "Mudar para Inglês",
     "booksList": "Lista de Livros",
+    "enterNewTask": "Digite uma nova tarefa",
+    "newTask": "Nova Tarefa",
     "searchPlaceholder": "Digite um tema de livro...",
     "search": "Buscar",
     "loading": "Carregando...",
@@ -57,7 +70,15 @@
     "invalidLoginCredentials": "Credenciais de login inválidas",
     "errorCreatingAccount": "Erro ao criar conta",
     "fillAllFields": "Por favor preencha todos os campos",
-    "alreadyHaveAccount": "Já tem uma conta? Entrar"
-
+    "alreadyHaveAccount": "Já tem uma conta? Entrar",
+    "tasks": "Tarefas",
+    "taskCompleted": "Tarefas Concluída",
+    "books": "Livros",
+    "users": "Usuários",
+    "saveTask": "Salvar Tarefa",
+    "Edit": "Editar",
+    "Delete": "Deletar",
+    "Actions": "Ações",
+    "logout": "Sair"
   }
 }

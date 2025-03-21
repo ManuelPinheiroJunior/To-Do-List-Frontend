@@ -4,11 +4,13 @@ import { Container, Row, Col, Card, Form, Button, Spinner } from "react-bootstra
 import NavBar from "../components/NavBar";
 import { fetchBooksRequest } from "../store/book/bookSlice";
 import { RootState } from "../store/store";
+import { useTranslation } from "../hooks/usetTranslation";
 
 const Books = () => {
   const dispatch = useDispatch();
   const { books, loading } = useSelector((state: RootState) => state.books);
   const [search, setSearch] = useState("react");
+   const t = useTranslation();
 
   useEffect(() => {
     dispatch(fetchBooksRequest(search));
@@ -23,7 +25,7 @@ const Books = () => {
     <div style={{ minHeight: "100vh", background: "linear-gradient(135deg, #E3FDFD, #CBF1F5)", display: "flex", flexDirection: "column" }}>
       <NavBar />
       <Container className="d-flex flex-column align-items-center justify-content-center flex-grow-1 mt-4">
-        <h2 className="text-center mb-4" style={{ color: "#0077B6" }}>📚 Books List</h2>
+        <h2 className="text-center mb-4" style={{ color: "#0077B6" }}>📚 {t.booksList}</h2>
 
         <Form onSubmit={handleSearch} className="d-flex justify-content-center mb-4">
           <Form.Control
@@ -35,7 +37,7 @@ const Books = () => {
             style={{ background: "#f8f9fa", color: "#333", border: "1px solid #ced4da" }}
           />
           <Button style={{ background: "#0077B6", borderColor: "#0077B6" }} type="submit" disabled={loading}>
-            {loading ? <Spinner animation="border" size="sm" /> : "Buscar"}
+            {loading ? <Spinner animation="border" size="sm" /> : t.search}
           </Button>
         </Form>
 
