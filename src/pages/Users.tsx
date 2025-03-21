@@ -4,12 +4,14 @@ import { RootState } from "../store/store";
 import { Table, Container, Button, Alert, Card, Spinner, Row, Col, Form } from "react-bootstrap";
 import NavBar from "../components/NavBar";
 import { deleteUserRequest, editUserRequest, fetchUsersRequest } from "../store/user/usersSlice";
+import { useTranslation } from "../hooks/usetTranslation";
 
 const UsersPage: React.FC = () => {
   const dispatch = useDispatch();
   const { users, loading, error } = useSelector((state: RootState) => state.user);
   const [editUserId, setEditUserId] = useState<number | null>(null);
   const [editData, setEditData] = useState<{ firstName: string; lastName: string; email: string }>({ firstName: "", lastName: "", email: "" });
+   const t = useTranslation();
 
   useEffect(() => {
     dispatch(fetchUsersRequest());
@@ -35,7 +37,7 @@ const UsersPage: React.FC = () => {
           <Col md={10}>
             <Card className="shadow-lg p-4 border-0" style={{ background: "#ffffff", borderRadius: "15px" }}>
               <Card.Body>
-                <h1 className="text-center mt-2" style={{ color: "#0077B6" }}>Users</h1>
+                <h1 className="text-center mt-2" style={{ color: "#0077B6" }}>{t.users}</h1>
                 {error && <Alert variant="danger">{error}</Alert>}
                 {loading ? (
                   <div className="text-center mt-4">
@@ -45,10 +47,10 @@ const UsersPage: React.FC = () => {
                   <Table striped bordered hover responsive className="mt-3 text-center">
                     <thead className="table-dark">
                       <tr>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Email</th>
-                        <th>Actions</th>
+                        <th>{t.firstName}</th>
+                        <th>{t.lastName}</th>
+                        <th>{t.email}</th>
+                        <th>{t.Actions}</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -84,7 +86,7 @@ const UsersPage: React.FC = () => {
                                       size="sm"
                                       onClick={() => handleEditClick(user)}
                                     >
-                                      ✏ Edit
+                                      ✏ {t.Edit}
                                     </Button>
                                   )}
                                   {user.role !== "ADMIN" && (
@@ -93,7 +95,7 @@ const UsersPage: React.FC = () => {
                                       size="sm"
                                       onClick={() => dispatch(deleteUserRequest(user.id))}
                                     >
-                                      ✖ Delete
+                                      ✖ {t.Delete}
                                     </Button>
                                   )}
                                 </div>
