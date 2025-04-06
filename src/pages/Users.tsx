@@ -30,14 +30,14 @@ const UsersPage: React.FC = () => {
   };
 
   return (
-    <div style={{ minHeight: "100vh", background: "linear-gradient(135deg, #E3FDFD, #CBF1F5)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+    <div style={{ minHeight: "100vh", background: "linear-gradient(135deg, #4A90E2, #50E3C2)", display: "flex", alignItems: "center", justifyContent: "center" }}>
       <Container>
         <NavBar />
         <Row className="justify-content-center">
           <Col md={10}>
             <Card className="shadow-lg p-4 border-0" style={{ background: "#ffffff", borderRadius: "15px" }}>
               <Card.Body>
-                <h1 className="text-center mt-2" style={{ color: "#0077B6" }}>{t.users}</h1>
+                <h1 className="text-center mt-2" style={{ color: "#4A90E2" }}>{t.users}</h1>
                 {error && <Alert variant="danger">{error}</Alert>}
                 {loading ? (
                   <div className="text-center mt-4">

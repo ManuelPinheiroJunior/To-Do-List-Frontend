@@ -23,6 +23,11 @@ const CompleteTaskList = (props: CompleteTaskProps) => {
             size="sm" 
             className="fw-bold"
             onClick={() => props.deleteTodo(props.id)}
+             style={{
+              borderColor: "#E74C3C",
+              color: "#E74C3C",
+              fontWeight: "bold",
+            }}
           >
             ✖ {t.Delete}
           </Button>
