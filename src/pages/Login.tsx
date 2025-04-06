@@ -30,7 +30,7 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div style={{ minHeight: "100vh", background: "linear-gradient(135deg, #E3FDFD, #CBF1F5)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+    <div style={{ minHeight: "100vh", background: "linear-gradient(135deg, #4A90E2, #50E3C2)", display: "flex", alignItems: "center", justifyContent: "center" }}>
       <Container>
         
         <Row className="w-100 justify-content-center">
@@ -42,23 +42,29 @@ const Login: React.FC = () => {
                 </div>
                 <div className="text-center mb-4">
                   <img src={Logo} alt="Logo" style={{ height: "180px" }} />
-                  <h2 className="mt-2" style={{ color: "#0077B6" }}>{t.title}</h2>
+                  <h2 className="mt-2" style={{ color: "#4A90E2" }}>{t.title}</h2>
                 </div>
 
                 {loginError && <Alert variant="danger">{loginError}</Alert>}
 
                 <Form>
                   <Form.Group className="mb-3">
-                    <Form.Label style={{ color: "#0077B6" }}>{t.email}</Form.Label>
+                    <Form.Label style={{ color: "#4A90E2" }}>{t.email}</Form.Label>
                     <Form.Control type="email" ref={emailRef} placeholder={t.enterEmail} style={{ background: "#f8f9fa", color: "#333", border: "1px solid #ced4da" }} />
                   </Form.Group>
 
                   <Form.Group className="mb-3">
-                    <Form.Label style={{ color: "#0077B6" }}>{t.password}</Form.Label>
+                    <Form.Label style={{ color: "#4A90E2" }}>{t.password}</Form.Label>
                     <Form.Control type="password" ref={passwordRef} placeholder={t.enterPassword} style={{ background: "#f8f9fa", color: "#333", border: "1px solid #ced4da" }} />
                   </Form.Group>
 
-                  <Button variant="primary" className="w-100" onClick={handleLogin} disabled={loading}>
+                  <Button variant="primary" className="w-100" onClick={handleLogin} disabled={loading} style={{
+                    background: "linear-gradient(135deg, #4A90E2, #50E3C2)", 
+                    border: "none", 
+                    color: "#ffffff", 
+                    fontWeight: "bold",
+                    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)", 
+                  }}>
                     {loading ? <Spinner animation="border" size="sm" /> : t.login}
                   </Button>
                 </Form>
@@ -67,7 +73,7 @@ const Login: React.FC = () => {
                   <a
                     onClick={() => navigate("/signUp")}
                     className="cursor-pointer"
-                    style={{ color: "#0077B6", textDecoration: "none" }}
+                    style={{ color: "#4A90E2", textDecoration: "none" }}
                   >
                     {t.dontHaveAccount}
                   </a>
