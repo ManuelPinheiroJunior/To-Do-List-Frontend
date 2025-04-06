@@ -18,14 +18,14 @@ const CompletedTasks = () => {
   }, [dispatch]);
 
   return (
-    <div style={{ minHeight: "100vh", background: "linear-gradient(135deg, #E3FDFD, #CBF1F5)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+    <div style={{ minHeight: "100vh", background: "linear-gradient(135deg, #4A90E2, #50E3C2)", display: "flex", alignItems: "center", justifyContent: "center" }}>
       <Container>
         <NavBar />
         <Row className="justify-content-center">
           <Col md={8}>
-            <Card className="shadow-lg p-4 border-0" style={{ background: "#ffffff", borderRadius: "15px" }}>
+            <Card className="shadow-lg p-4 border-0" style={{ background: "#ffffff", borderRadius: "15px",boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)" }}>
               <Card.Body>
-                <h2 className="text-center mb-4" style={{ color: "#0077B6" }}>{t.taskCompleted}</h2>
+                <h2 className="text-center mb-4" style={{ color: "#4A90E2" }}>{t.taskCompleted}</h2>
                 {loading ? (
                   <div className="text-center mt-4">
                     <Spinner animation="border" variant="primary" />

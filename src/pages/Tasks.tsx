@@ -26,21 +26,27 @@ const Tasks = () => {
   };
 
   return (
-    <div style={{ minHeight: "100vh", background: "linear-gradient(135deg, #E3FDFD, #CBF1F5)", display: "flex", flexDirection: "column" }}>
+    <div style={{ minHeight: "100vh", background: "linear-gradient(135deg, #4A90E2, #50E3C2)", display: "flex", flexDirection: "column" }}>
       <NavBar />
       <Container className="d-flex flex-column align-items-center justify-content-center flex-grow-1">
         <Row className="justify-content-center w-100">
           <Col md={8}>
-            <Card className="shadow-lg p-4 border-0" style={{ background: "#ffffff", borderRadius: "15px" }}>
+            <Card className="shadow-lg p-4 border-0" style={{ background: "#ffffff", borderRadius: "15px", boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)"}}>
               <Card.Body>
                 <h2 className="text-center mb-4" style={{ color: "#0077B6" }}>{t.tasks}</h2>
 
                 <Form>
                   <Form.Group className="mb-3">
-                    <Form.Label style={{ color: "#0077B6" }}>{t.newTask}:</Form.Label>
+                    <Form.Label style={{ color: "#4A90E2" }}>{t.newTask}:</Form.Label>
                     <Form.Control type="text" ref={titleRef} placeholder={t.enterNewTask} style={{ background: "#f8f9fa", color: "#333", border: "1px solid #ced4da" }} />
                   </Form.Group>
-                  <Button variant="success" className="w-100" onClick={saveTask} disabled={loading}>
+                  <Button variant="success" className="w-100" onClick={saveTask} disabled={loading} style={{
+                    background: "linear-gradient(135deg, #4A90E2, #50E3C2)", 
+                    border: "none", 
+                    color: "#ffffff", 
+                    fontWeight: "bold",
+                    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)", 
+                  }}>
                     {loading ? <Spinner animation="border" size="sm" /> : t.saveTask}
                   </Button>
                 </Form>

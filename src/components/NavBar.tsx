@@ -13,11 +13,11 @@ const CustomNavbar: React.FC = () => {
    const t = useTranslation();
 
   return (
-    <Navbar expand="lg" style={{ background: "linear-gradient(135deg, #E0F7FA, #B2EBF2)", position: "fixed", top: 0, left: 0, width: "100%", zIndex: 1000 }}>
+    <Navbar expand="lg" style={{ background: "linear-gradient(135deg, #4A90E2, #50E3C2)", position: "fixed", top: 0, left: 0, width: "100%", zIndex: 1000, boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)" }}>
       <Container>
         <Navbar.Brand onClick={() => navigate("/")} className="cursor-pointer d-flex align-items-center">
           <img src={Logo} alt="Logo" className="me-2" style={{ height: "60px" }} />
-          <span style={{ color: "#0077B6", fontWeight: "bold" }}>{t.title}</span>
+               <span style={{ color: "#ffffff", fontWeight: "bold" }}>{t.title}</span>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">

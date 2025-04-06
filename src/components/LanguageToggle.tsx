@@ -35,6 +35,8 @@ const LanguageToggle: React.FC = () => {
             backgroundImage: `url(${currentLanguage?.flag})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
+            boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)", 
+            border: "2px solid #4A90E2", 
           }}
         />
       </OverlayTrigger>
